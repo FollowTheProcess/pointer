@@ -77,13 +77,91 @@ func TestOr(t *testing.T) {
 	})
 }
 
+func TestOrDefault(t *testing.T) {
+	t.Run("string nil", func(t *testing.T) {
+		var str *string // nil
+
+		got := pointer.OrDefault(str)
+
+		if got != "" {
+			t.Errorf("got %q, wanted %q", got, "")
+		}
+	})
+
+	t.Run("string non nil", func(t *testing.T) {
+		str := "wow"
+
+		got := pointer.OrDefault(&str)
+
+		if got != str {
+			t.Errorf("got %q, wanted %q", got, str)
+		}
+	})
+
+	t.Run("int nil", func(t *testing.T) {
+		var i *int // nil
+
+		got := pointer.OrDefault(i)
+
+		if got != 0 {
+			t.Errorf("got %d, wanted %d", got, 0)
+		}
+	})
+
+	t.Run("int non nil", func(t *testing.T) {
+		i := 12
+
+		got := pointer.OrDefault(&i)
+
+		if got != i {
+			t.Errorf("got %d, wanted %d", got, i)
+		}
+	})
+
+	t.Run("struct nil", func(t *testing.T) {
+		type thing struct{ name string } //nolint: unused
+		var x *thing
+
+		got := pointer.OrDefault(x)
+		want := thing{}
+
+		if got != want {
+			t.Errorf("got %v, wanted %v", got, want)
+		}
+	})
+
+	t.Run("struct non nil", func(t *testing.T) {
+		type thing struct{ name string }
+		x := thing{name: "x"}
+
+		got := pointer.OrDefault(&x)
+
+		if got != x {
+			t.Errorf("got %v, wanted %v", got, x)
+		}
+	})
+}
+
 func ExampleOr() {
 	var s1 *string // nil pointer
 	s2 := "hello"
 
-	fmt.Println(pointer.Or(s1, "default"))
-	fmt.Println(pointer.Or(&s2, "you won't see me"))
+	fmt.Printf("%q\n", pointer.Or(s1, "default"))
+	fmt.Printf("%q\n", pointer.Or(&s2, "you won't see me"))
+
 	// Output:
-	// default
-	// hello
+	// "default"
+	// "hello"
+}
+
+func ExampleOrDefault() {
+	var s1 *string // nil pointer
+	s2 := "wow!"
+
+	fmt.Printf("%q\n", pointer.OrDefault(s1))
+	fmt.Printf("%q\n", pointer.OrDefault(&s2))
+
+	// Output:
+	// ""
+	// "wow!"
 }
