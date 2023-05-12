@@ -2,9 +2,23 @@
 package pointer
 
 // Or returns the value p is pointing to if it is not nil, else v.
+//
+//	var s *string // nil pointer
+//	str := pointer.Or(s, "default")
+//	fmt.Println(str) // "default"
 func Or[T any](p *T, v T) T {
 	if p != nil {
 		return *p
 	}
 	return v
+}
+
+// OrDefault returns the value p is pointing to if it is not nil, otherwise
+// the zero value for the type T.
+//
+//	var s *string // nil pointer
+//	str := pointer.OrDefault(s)
+//	fmt.Println(str) // ""
+func OrDefault[T any](p *T) T {
+	return Or(p, *new(T))
 }
