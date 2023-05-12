@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.8.2
+_src_path: gh:FollowTheProcess/go_copier
+author_email: null
+author_name: Tom Fleet
+create_github_repo: false
+description: Work fearlessly with pointers in Go
+github_url: https://github.com/FollowTheProcess/pointer
+github_username: FollowTheProcess
+initialise_git_repo: true
+license: MIT License
+project_name: Pointer
+project_slug: pointer
+project_type: library
