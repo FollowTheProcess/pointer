@@ -1,4 +1,4 @@
-// Package pointer implements a number of helpful and simple tools for working safely and conveniently with pointers.
+// Package pointer is a tiny, simple and obvious library to help deal safely with pointers
 package pointer
 
 // Or returns the value p is pointing to if it is not nil, else v.
