@@ -1,6 +1,7 @@
 package pointer_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/FollowTheProcess/pointer"
@@ -74,4 +75,15 @@ func TestOr(t *testing.T) {
 			t.Errorf("got %v, wanted %v", got, x)
 		}
 	})
+}
+
+func ExampleOr() {
+	var s1 *string // nil pointer
+	s2 := "hello"
+
+	fmt.Println(pointer.Or(s1, "default"))
+	fmt.Println(pointer.Or(&s2, "you won't see me"))
+	// Output:
+	// default
+	// hello
 }
