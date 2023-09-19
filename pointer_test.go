@@ -2,10 +2,45 @@ package pointer_test
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 
 	"github.com/FollowTheProcess/pointer"
 )
+
+func TestNew(t *testing.T) {
+	tests := []struct {
+		thing any
+		name  string
+	}{
+		{
+			name:  "string",
+			thing: "hello",
+		},
+		{
+			name:  "int",
+			thing: 42,
+		},
+		{
+			name:  "bool",
+			thing: true,
+		},
+		{
+			name:  "struct",
+			thing: struct{ name string }{name: "hello"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ptr := pointer.New(tt.thing)
+
+			if got := reflect.TypeOf(ptr).Kind(); got != reflect.Pointer {
+				t.Errorf("got %s, wanted %s", got, reflect.Pointer)
+			}
+		})
+	}
+}
 
 func TestOr(t *testing.T) {
 	t.Run("string nil", func(t *testing.T) {
@@ -140,6 +175,14 @@ func TestOrDefault(t *testing.T) {
 			t.Errorf("got %v, wanted %v", got, x)
 		}
 	})
+}
+
+func ExampleNew() {
+	s := pointer.New("hello")
+	fmt.Printf("%T\n", s)
+
+	// Output:
+	// *string
 }
 
 func ExampleOr() {

@@ -1,6 +1,15 @@
 // Package pointer is a tiny, simple and obvious library to help deal safely with pointers
 package pointer
 
+// New returns a pointer to the passed value, particularly useful for
+// generating pointers to primitive types (string, int etc.).
+//
+//	s := pointer.New("hello")
+//	fmt.Printf("%T", s) // *string
+func New[T any](thing T) *T {
+	return &thing
+}
+
 // Or returns the value p is pointing to if it is not nil, else v.
 //
 //	var s *string // nil pointer
