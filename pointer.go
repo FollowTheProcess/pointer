@@ -5,7 +5,7 @@ package pointer
 // generating pointers to primitive types (string, int etc.).
 //
 //	s := pointer.New("hello")
-//	fmt.Printf("%T\n", s) // *string
+//	fmt.Printf("%T", s) // *string
 func New[T any](thing T) *T {
 	return &thing
 }
