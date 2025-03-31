@@ -154,7 +154,7 @@ func TestOrDefault(t *testing.T) {
 	})
 
 	t.Run("struct nil", func(t *testing.T) {
-		type thing struct{ name string } //nolint: unused
+		type thing struct{ name string } //nolint: unused // We need this
 		var x *thing
 
 		got := pointer.OrDefault(x)
